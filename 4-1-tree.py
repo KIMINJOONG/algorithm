@@ -69,6 +69,38 @@ class NodeMgmt:
             else:
                 self.parent.right = self.current_node.right
 
+        # 해쉬태그 - 6
+        # case 3
+        if self.current_node.left != None and self.current_node.right != None:
+            # case 3 - 1
+            if value < self.parent.value:
+                self.change_node = self.current_node.right
+                self.change_node_parent = self.current_node.right
+                while self.change_node.left != None:
+                    self.change_node_parent = self.change_node
+                    self.change_node = self.change_node.left
+                if self.change_node.right != None:
+                    self.change_node_parent.left = self.change_node.right
+                else:
+                    self.change_node_parent.left = None
+                self.parent.left = self.change_node
+                self.change_node.right = self.current_node.right
+                self.change_node.left = self.current_node.left
+            # case 3 - 2
+            else:
+                self.change_node = self.current_node.right
+                self.change_node_parent = self.current_node.right
+                while self.change_node.left != None:
+                    self.change_node.parent = self.change_node
+                    self.change_node = self.change_node.left
+                if self.change_node.right != None:
+                    self.change_node_parent.left = self.change_node.right
+                else:
+                    self.change_node_parent.left = None
+                self.parent.right = self.change_node
+                self.change_node.left = self.current_node.left
+                self.change_node.right = self.current_node.right
+        
 
 head = Node(1)
 BST = NodeMgmt(head)
